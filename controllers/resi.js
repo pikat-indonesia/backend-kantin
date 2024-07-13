@@ -6,7 +6,7 @@ exports.getResi = (req, res) => {
   let sql =
     "SELECT tbl_resi.id AS resi_id, tbl_resi.table_type, tbl_resi.cost AS resi_cost, tbl_resi.pay, tbl_resi.change, tbl_resi.date AS resi_date, JSON_ARRAYAGG(JSON_OBJECT('name', tbl_penjualan.name,'qty', tbl_penjualan.qty,'cost', tbl_penjualan.cost) ) AS items FROM tbl_resi LEFT JOIN tbl_penjualan ON tbl_resi.id = tbl_penjualan.idresi WHERE tbl_resi.idKantin = '" +
     idKantin +
-    "' GROUP BY tbl_resi.id,tbl_resi.table_type,tbl_resi.cost,tbl_resi.pay,tbl_resi.change,tbl_resi.date;";
+    "' AND DATE(tbl_resi.date) = CURDATE() GROUP BY tbl_resi.id,tbl_resi.table_type,tbl_resi.cost,tbl_resi.pay,tbl_resi.change,tbl_resi.date;";
 
   db.query(sql, function (err, result) {
     //if (err) throw err;

@@ -4,9 +4,9 @@ var db = require("../config/db_config");
 exports.getMenu = (req, res) => {
   const idKantin = req.body.idKantin;
   let sql =
-    "SELECT id, title, price, date FROM tbl_menu WHERE idKantin = '" +
+    "SELECT id, title, type, price, date FROM tbl_menu WHERE idKantin = '" +
     idKantin +
-    "' AND status = 1;";
+    "' AND status = 1 ORDER BY title ASC;";
 
   db.query(sql, function (err, result) {
     //if (err) throw err;

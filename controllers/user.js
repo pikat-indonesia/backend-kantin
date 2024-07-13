@@ -14,7 +14,7 @@ exports.userLogin = async (req, res) => {
   }
 
   let sql =
-    "SELECT * FROM tbl_user WHERE (role = 2 OR role = 3) AND username = ?";
+    "SELECT tbl_user.*, tbl_kantin.nama FROM tbl_user LEFT JOIN tbl_kantin ON tbl_user.idKantin = tbl_kantin.id WHERE (tbl_user.role = 2 OR tbl_user.role = 3) AND tbl_user.username = ?";
 
   db.query(sql, [username], async function (err, result) {
     if (err) {
