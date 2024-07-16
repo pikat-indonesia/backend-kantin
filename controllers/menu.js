@@ -4,7 +4,7 @@ var db = require("../config/db_config");
 exports.getMenu = (req, res) => {
   const idKantin = req.body.idKantin;
   let sql =
-    "SELECT id, title, price, date FROM tbl_menu WHERE idKantin = '" +
+    "SELECT id, title, type, price, date FROM tbl_menu WHERE idKantin = '" +
     idKantin +
     "' AND status = 1;";
 
@@ -31,14 +31,16 @@ exports.getMenu = (req, res) => {
 };
 
 exports.addMenu = (req, res) => {
-  const { title, price, idKantin } = req.body;
+  const { title, type, price, idKantin } = req.body;
 
   let sql =
-    "INSERT INTO tbl_menu (title, price, date, idKantin, status) VALUES ('" +
+    "INSERT INTO tbl_menu (title,type, price, idKantin, status) VALUES ('" +
     title +
+    "','" +
+    type +
     "', '" +
     price +
-    "', NOW(), '" +
+    "',  '" +
     idKantin +
     "', 1);";
 
@@ -58,14 +60,16 @@ exports.addMenu = (req, res) => {
 };
 
 exports.editMenu = (req, res) => {
-  const { id, title, price, idKantin } = req.body;
+  const { id, title, type, price, idKantin } = req.body;
 
   let sql =
     "UPDATE tbl_menu SET title = '" +
     title +
+    "', type = '" +
+    type +
     "', price = '" +
     price +
-    "', date = NOW(), idKantin = '" +
+    "', idKantin = '" +
     idKantin +
     "' WHERE id = '" +
     id +
