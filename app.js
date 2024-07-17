@@ -8,6 +8,7 @@ var db = require("./config/db_config");
 
 const userRoutes = require("./routes/user");
 const menuRoutes = require("./routes/menu");
+const produkRoutes = require("./routes/produk");
 const resiRoutes = require("./routes/resi");
 const tableRoutes = require("./routes/table");
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 
 app.use("/user", userRoutes);
 app.use("/menu", menuRoutes);
+app.use("/produk", produkRoutes);
 app.use("/resi", resiRoutes);
 app.use("/table", tableRoutes);
 
