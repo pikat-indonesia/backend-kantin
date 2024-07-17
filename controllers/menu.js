@@ -4,9 +4,9 @@ var db = require("../config/db_config");
 exports.getMenu = (req, res) => {
   const idKantin = req.body.idKantin;
   let sql =
-    "SELECT id, title, type, price, date FROM tbl_menu WHERE idKantin = '" +
+    "SELECT m.id, m.title, mt.name as type, m.price, m.date FROM tbl_menu m JOIN tbl_menu_type mt ON m.type = mt.id WHERE m.idKantin = '" +
     idKantin +
-    "' AND status = 1;";
+    "' AND m.status = 1 ORDER BY m.title ASC;";
 
   db.query(sql, function (err, result) {
     //if (err) throw err;
@@ -48,7 +48,7 @@ exports.addMenu = (req, res) => {
     if (err) {
       res.status(401).json({
         message: "Error",
-        error: err.message, // Optional: Mengirim pesan kesalahan ke klien
+        error: err.message,
       });
     } else {
       res.status(200).json({
@@ -121,6 +121,33 @@ exports.deleteMenu = (req, res) => {
           // result: result,
         });
       }
+    }
+  });
+};
+
+exports.getType = (req, res) => {
+  const idKantin = req.body.idKantin;
+  let sql =
+    "SELECT * FROM tbl_menu_type WHERE idKantin = '" +
+    idKantin +
+    "' ORDER BY name ASC;";
+
+  db.query(sql, function (err, result) {
+    if (err) {
+      return res.status(401).json({
+        message: "Error",
+      });
+    }
+
+    if (result.length > 0) {
+      res.status(200).json({
+        message: "Success",
+        val: result,
+      });
+    } else {
+      res.status(200).json({
+        message: "No Data",
+      });
     }
   });
 };
