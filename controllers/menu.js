@@ -29,7 +29,34 @@ exports.getMenu = (req, res) => {
     }
   });
 };
+exports.getMenuDashboard = (req, res) => {
+  const idKantin = req.body.idKantin;
+  let sql =
+    "SELECT * FROM tbl_menu WHERE idKantin = '" +
+    idKantin +
+    "' AND status = 1 ORDER BY title ASC;";
 
+  db.query(sql, function (err, result) {
+    //if (err) throw err;
+    if (err) {
+      res.status(401).json({
+        message: "Error",
+      });
+    }
+
+    if (result.length > 0) {
+      res.status(200).json({
+        message: "Success",
+        val: result,
+      });
+    } else {
+      res.status(200).json({
+        message: "No Data",
+        // val: result,
+      });
+    }
+  });
+};
 exports.addMenu = (req, res) => {
   const { title, type, price, idKantin } = req.body;
 
