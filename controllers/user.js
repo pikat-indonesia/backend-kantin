@@ -57,3 +57,31 @@ exports.userLogin = async (req, res) => {
     }
   });
 };
+
+const getHashedPassword = async (password) => {
+  try {
+    const salt = await bcrypt.genSalt(8);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  } catch (error) {
+    console.error("Error generating hashed password:", error);
+    throw new Error("Error generating hashed password");
+  }
+};
+
+// Example endpoint to hash password
+exports.hashPassword = async (req, res) => {
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({ message: "Password is required" });
+  }
+
+  try {
+    const hashedPassword = await getHashedPassword(password);
+    res.status(200).json({ hashedPassword });
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    res.status(500).json({ message: "Error hashing password" });
+  }
+};
