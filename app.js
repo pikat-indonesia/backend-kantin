@@ -11,6 +11,7 @@ const menuRoutes = require("./routes/menu");
 const produkRoutes = require("./routes/produk");
 const resiRoutes = require("./routes/resi");
 const tableRoutes = require("./routes/table");
+const favoriteRoutes = require("./routes/favorite");
 
 const app = express();
 
@@ -35,5 +36,6 @@ app.use("/menu", menuRoutes);
 app.use("/produk", produkRoutes);
 app.use("/resi", resiRoutes);
 app.use("/table", tableRoutes);
+app.use("/favorite", favoriteRoutes);
 
 module.exports = app;
