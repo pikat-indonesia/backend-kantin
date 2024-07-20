@@ -121,11 +121,15 @@ exports.dashboardLogin = async (req, res) => {
           const token = jwt.sign({ userId: user.id }, process.env.JWT_KEY, {
             expiresIn: "2160h",
           });
-
+          const userToken = crypto.AES.encrypt(
+            JSON.stringify({
+              user: user,
+              token: token,
+            }),
+            process.env.JWT_KEY
+          ).toString();
           return res.status(200).json({
-            user: user,
-            token: token,
-            message: "Success",
+            userToken: userToken,
           });
         } else {
           return res.status(401).json({

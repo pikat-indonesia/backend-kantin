@@ -35,3 +35,32 @@ exports.getProduk = (req, res) => {
     }
   });
 };
+
+exports.getProdukResi = (req, res) => {
+  const idResi = req.body.idResi;
+  let sql =
+    "SELECT id, name, qty, cost, date FROM tbl_penjualan WHERE idResi = '" +
+    idResi +
+    "'";
+
+  db.query(sql, function (err, result) {
+    //if (err) throw err;
+    if (err) {
+      res.status(401).json({
+        message: "Error",
+      });
+    }
+
+    if (result.length > 0) {
+      res.status(200).json({
+        message: "Success",
+        val: result,
+      });
+    } else {
+      res.status(200).json({
+        message: "No Data",
+        // val: result,
+      });
+    }
+  });
+};
