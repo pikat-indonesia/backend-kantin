@@ -4,8 +4,8 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 router.post("/getTable", checkAuth, tableController.getTable);
-router.post("/addTable", tableController.addTable);
-router.post("/editTable", tableController.editTable);
-router.post("/deleteTable", tableController.deleteTable);
+router.post("/addTable", checkAuth, tableController.addTable);
+router.post("/editTable", checkAuth, tableController.editTable);
+router.post("/deleteTable", checkAuth, tableController.deleteTable);
 
 module.exports = router;
