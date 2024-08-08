@@ -157,7 +157,7 @@ exports.getType = (req, res) => {
   let sql =
     "SELECT * FROM tbl_menu_type WHERE idKantin = '" +
     idKantin +
-    "' ORDER BY name ASC;";
+    "' AND status = 1 ORDER BY name ASC;";
 
   db.query(sql, function (err, result) {
     if (err) {
